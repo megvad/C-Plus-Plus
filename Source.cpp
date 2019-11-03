@@ -1,9 +1,23 @@
+//	Project Name: The Organ Trail
+//
+//	Author: Meghana Vadassery
+//
+//	Description: The final project for a class in C++ that utlizes the skills I have learned.
+//				 Based on the 'Orgeon Trail', the Organ Trail follows a similar structure, where the player must leave their
+//				 home amidst a zombie apocalypse. The player's desicions to randomized events may help or hurt them, as these
+//				 choices have bearings on their stats, such as health, strength, and food. The goal of this abridged version
+//				 is to arrive at Independence city, alive.
+
 #include <iostream>
+// Including library of functions
 #include <string>
 #include <thread>
 #include <chrono>
 #include <random>
+// Generates random numbers to trigger randomized events for the switch statements in the program
+// This gives the game more versatility, but can make it more challenging.
 using namespace std;
+// In order to use previously installed functions in C++ without name conflict
 
 void stats(string name, 
 			int strength, 
@@ -15,6 +29,7 @@ void stats(string name,
 			int distance, 
 			int fatigue, 
 			int partymembers);
+// declaring the 'stats' function and the variables to be used in it
 void stats(string name, int strength, int defense, int intelligence, int weapons, int food, int medicine, int distance, int fatigue, int partymembers) {
 	cout << "Name: " << name << endl;
 	cout << "Strength: " << strength << endl;
@@ -41,10 +56,14 @@ void death(string name, int strength, int defense, int intelligence, int weapons
 	//this won't work b/c this is void function and what we're asking here is for a return
 	//That's why we have exit();
 	exit(0);
+	// exit (0) will end the program
 }
 
 void hunting(int &strength, int &defense, int &intelligence, int &weapons, int &food, int &medicine);
-void hunting(int &strength, int &defense, int &intelligence, int &weapons, int &food, int &medicine) {
+void hunting(int &strength, int &defense, int &intelligence, int &weapons, int &food, int &medicine)
+// Variables with & indicate that this function is meant to go straight to the address of the variable and alter it
+// There were issues initally with merely adding the variables, so &(variable name) fixed it
+{
 	cout << "Hm. It doesn't look too bad outside today." << endl;
 	this_thread::sleep_for(chrono::milliseconds(2000));
 	cout << "There doesn't appear to be many zombies on this area of the trail." << endl;
@@ -56,7 +75,11 @@ void hunting(int &strength, int &defense, int &intelligence, int &weapons, int &
 	cout << "Will you go and search for items?" << endl;
 	string ok;
 	cin >> ok;
-	if (ok == "yes") {
+	// asking for player input and storing it in variable ok
+	if (ok == "yes")
+	// the == is to check to ensure that the input is "yes". If so, the program continues with the if statement. If not, then it
+	// goes to the else statement
+	{
 		cout << "You decide to go and forage for food." << endl;
 		this_thread::sleep_for(chrono::milliseconds(2000));
 		random_device hunting;
@@ -100,7 +123,10 @@ void climate(int &medicine, int &partymembers, int &strength, int &defense, int 
 	cout << "Do you rest, or continue forward?" << endl;
 	string restOrGo;
 	cin >> restOrGo;
-	if (restOrGo != "continue forward") {
+	if (restOrGo != "continue forward")
+	// != means 'does not equal to'. Here, if the response by the player is not "continue forward", the program goes through the if
+	// statement.
+	{
 		cout << "You decide to not risk it and camp overnight." << endl;
 		this_thread::sleep_for(chrono::milliseconds(2000));
 		cout << "However, one of your party members falls sick." << endl;
@@ -307,15 +333,22 @@ void delayScroll(int delayMS, int lineCount) {
 
 		cout << "\n" << endl;
 		this_thread::sleep_for(chrono::milliseconds(delayMS));
+// This function of delayScroll adds a series of blank lines. When the program runs, this will give the effect of the fuction scrolling
+// down by itself
 	}
 }
 
 int main() {
 	random_device rd;
+	// declaring that a randomizer named rd will be used
 	int date = 5;
+	// establishing the interger variable of date, which will be used later on to track the player's progress.
 	cout << "Hello!" << "\n" << "\n" << "Welcome to....." << endl;
+	
 	this_thread::sleep_for(chrono::milliseconds(3000));
+	// The program waits for 3000 milliseconds, giving the player enough time to read
 	delayScroll(50, 21);
+	// delayScroll goes down 21 lines in 50 milliseconds
 	cout << "The Organ Trail!" << endl;
 	this_thread::sleep_for(chrono::milliseconds(2000));
 	cout << "No, that wasn't spelt incorrectly." << endl;
